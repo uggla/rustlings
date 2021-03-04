@@ -16,8 +16,6 @@
 //
 // Execute `rustlings hint box1` for hints :)
 
-// I AM NOT DONE
-
 use List::{Cons, Nil};
 #[derive(PartialEq, Debug)]
 pub enum List {

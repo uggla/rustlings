@@ -11,8 +11,6 @@ struct Color {
     blue: u8,
 }
 
-// I AM NOT DONE
-
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
 // You need to create an implementation for a tuple of three integers,
@@ -25,19 +23,73 @@ struct Color {
 // Tuple implementation
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = String;
-    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {}
+    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        let (red, green, blue) = tuple;
+        if red < 0 || red > 255 {
+            return Err(String::from("red not in the correct range"));
+        }
+        if green < 0 || green > 255 {
+            return Err(String::from("green not in the correct range"));
+        }
+        if blue < 0 || blue > 255 {
+            return Err(String::from("green not in the correct range"));
+        }
+
+        let red = u8::try_from(red).unwrap();
+        let green = u8::try_from(green).unwrap();
+        let blue = u8::try_from(blue).unwrap();
+
+        Ok(Color { red, green, blue })
+    }
 }
 
 // Array implementation
 impl TryFrom<[i16; 3]> for Color {
     type Error = String;
-    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {}
+    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        let [red, green, blue] = arr;
+        if red < 0 || red > 255 {
+            return Err(String::from("red not in the correct range"));
+        }
+        if green < 0 || green > 255 {
+            return Err(String::from("green not in the correct range"));
+        }
+        if blue < 0 || blue > 255 {
+            return Err(String::from("green not in the correct range"));
+        }
+
+        let red = u8::try_from(red).unwrap();
+        let green = u8::try_from(green).unwrap();
+        let blue = u8::try_from(blue).unwrap();
+
+        Ok(Color { red, green, blue })
+    }
 }
 
 // Slice implementation
 impl TryFrom<&[i16]> for Color {
     type Error = String;
-    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {}
+    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        if let [red, green, blue] = slice {
+            if red < &0 || red > &255 {
+                return Err(String::from("red not in the correct range"));
+            }
+            if green < &0 || green > &255 {
+                return Err(String::from("green not in the correct range"));
+            }
+            if blue < &0 || blue > &255 {
+                return Err(String::from("green not in the correct range"));
+            }
+
+            let red = u8::try_from(red.clone()).unwrap();
+            let green = u8::try_from(green.clone()).unwrap();
+            let blue = u8::try_from(blue.clone()).unwrap();
+
+            return Ok(Color { red, green, blue });
+        } else {
+            return Err(String::from("Fail to extract color from slice"));
+        }
+    }
 }
 
 fn main() {
